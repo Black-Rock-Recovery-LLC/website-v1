@@ -33,22 +33,6 @@ syncThemeToClock();
 // Re-check periodically so a page left open transitions at sunrise/sunset.
 setInterval(syncThemeToClock, 5 * 60 * 1000);
 
-// Occasional rain passing through the hero scene — a small nod to the
-// ups and downs of recovery. Purely ambient, not tied to real weather.
-const heroEl = document.querySelector('.hero');
-if (heroEl) {
-  (function scheduleRain() {
-    const delay = 25000 + Math.random() * 35000;
-    setTimeout(() => {
-      heroEl.classList.add('raining');
-      setTimeout(() => {
-        heroEl.classList.remove('raining');
-        scheduleRain();
-      }, 14000 + Math.random() * 8000);
-    }, delay);
-  })();
-}
-
 // Mobile nav toggle
 const navToggle = document.getElementById('nav-toggle');
 const navLinks = document.getElementById('nav-links');
