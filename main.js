@@ -1,21 +1,16 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Day/night ("lights on / lights off") theme toggle
-const themeToggle = document.getElementById('theme-toggle');
+// Day/night theme — strictly follows real Eastern Time (PA). No manual override.
 const rootEl = document.documentElement;
 
 function applyTheme(theme) {
   if (theme === 'light') {
     rootEl.setAttribute('data-theme', 'light');
-    themeToggle.setAttribute('aria-pressed', 'true');
   } else {
     rootEl.removeAttribute('data-theme');
-    themeToggle.setAttribute('aria-pressed', 'false');
   }
 }
 
-// Default to real Eastern Time day/night; a manual toggle overrides this
-// and is remembered on future visits.
 function getEasternHour() {
   try {
     return parseInt(
@@ -30,16 +25,13 @@ function isDaytimeET() {
   const h = getEasternHour();
   return h >= 6 && h < 19;
 }
+function syncThemeToClock() {
+  applyTheme(isDaytimeET() ? 'light' : 'dark');
+}
 
-let savedTheme = null;
-try { savedTheme = localStorage.getItem('brr-theme'); } catch (e) {}
-applyTheme(savedTheme || (isDaytimeET() ? 'light' : 'dark'));
-
-themeToggle.addEventListener('click', () => {
-  const next = rootEl.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-  applyTheme(next);
-  try { localStorage.setItem('brr-theme', next); } catch (e) {}
-});
+syncThemeToClock();
+// Re-check periodically so a page left open transitions at sunrise/sunset.
+setInterval(syncThemeToClock, 5 * 60 * 1000);
 
 // Occasional rain passing through the hero scene — a small nod to the
 // ups and downs of recovery. Purely ambient, not tied to real weather.
