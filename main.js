@@ -1,5 +1,62 @@
 document.getElementById('year').textContent = new Date().getFullYear();
 
+// Day/night ("lights on / lights off") theme toggle
+const themeToggle = document.getElementById('theme-toggle');
+const rootEl = document.documentElement;
+
+function applyTheme(theme) {
+  if (theme === 'light') {
+    rootEl.setAttribute('data-theme', 'light');
+    themeToggle.setAttribute('aria-pressed', 'true');
+  } else {
+    rootEl.removeAttribute('data-theme');
+    themeToggle.setAttribute('aria-pressed', 'false');
+  }
+}
+
+// Default to real Eastern Time day/night; a manual toggle overrides this
+// and is remembered on future visits.
+function getEasternHour() {
+  try {
+    return parseInt(
+      new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', hour: 'numeric', hour12: false }).format(new Date()),
+      10
+    );
+  } catch (e) {
+    return new Date().getHours();
+  }
+}
+function isDaytimeET() {
+  const h = getEasternHour();
+  return h >= 6 && h < 19;
+}
+
+let savedTheme = null;
+try { savedTheme = localStorage.getItem('brr-theme'); } catch (e) {}
+applyTheme(savedTheme || (isDaytimeET() ? 'light' : 'dark'));
+
+themeToggle.addEventListener('click', () => {
+  const next = rootEl.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  applyTheme(next);
+  try { localStorage.setItem('brr-theme', next); } catch (e) {}
+});
+
+// Occasional rain passing through the hero scene — a small nod to the
+// ups and downs of recovery. Purely ambient, not tied to real weather.
+const heroEl = document.querySelector('.hero');
+if (heroEl) {
+  (function scheduleRain() {
+    const delay = 25000 + Math.random() * 35000;
+    setTimeout(() => {
+      heroEl.classList.add('raining');
+      setTimeout(() => {
+        heroEl.classList.remove('raining');
+        scheduleRain();
+      }, 14000 + Math.random() * 8000);
+    }, delay);
+  })();
+}
+
 // Mobile nav toggle
 const navToggle = document.getElementById('nav-toggle');
 const navLinks = document.getElementById('nav-links');

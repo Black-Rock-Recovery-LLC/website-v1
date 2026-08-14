@@ -26,7 +26,7 @@
 
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://formsubmit.co; base-uri 'self'; form-action 'self' https://formsubmit.co; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<link rel="stylesheet" href="styles.css?v=12">
+<link rel="stylesheet" href="styles.css?v=15">
 </head>
 <body>
 <div class="aurora-field" aria-hidden="true"></div>
@@ -71,6 +71,10 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-cta">
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle day and night mode" aria-pressed="false" title="Lights on / lights off">
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      </button>
       <a href="tel:5555550123" class="btn btn-ghost">Call (555) 555-0123</a>
       <a href="#apply" class="btn btn-primary">Apply Now</a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
@@ -86,6 +90,11 @@
   <section class="hero">
     <div class="hero-scene" aria-hidden="true">
       <div class="sky"></div>
+      <div class="clouds">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+      </div>
       <svg class="stars" width="100%" height="100%" preserveAspectRatio="none">
         <circle cx="8%" cy="12%" r="1.4" fill="#f3f4f8"/>
         <circle cx="18%" cy="22%" r="1" fill="#f3f4f8"/>
@@ -98,6 +107,15 @@
         <circle cx="54%" cy="26%" r="1" fill="#f3f4f8"/>
         <circle cx="24%" cy="30%" r="1" fill="#f3f4f8"/>
       </svg>
+      <div class="celestial sun-wrap">
+        <div class="sun-tint"></div>
+        <div class="sun-glow"></div>
+        <div class="sun-disc"></div>
+      </div>
+      <div class="celestial moon-wrap">
+        <div class="moon-glow"></div>
+        <div class="moon-disc"></div>
+      </div>
       <svg class="mountain-layer mountain-far" data-speed="0.12" viewBox="0 0 1600 420" preserveAspectRatio="none" style="height:56%;">
         <path d="M0 340 L120 220 L230 300 L360 160 L480 280 L610 190 L740 320 L860 230 L980 340 L1100 210 L1230 300 L1360 200 L1480 310 L1600 250 L1600 420 L0 420 Z" fill="#171d29"/>
       </svg>
@@ -108,6 +126,7 @@
         <path d="M0 400 L140 300 L260 380 L400 260 L540 390 L660 300 L790 400 L920 290 L1050 400 L1190 300 L1330 400 L1470 320 L1600 400 L1600 420 L0 420 Z" fill="#080a10"/>
       </svg>
       <div class="mist"></div>
+      <div class="rain"></div>
       <div class="scrim"></div>
     </div>
     <div class="container">
@@ -637,6 +656,6 @@
 </footer>
 </div>
 
-<script src="main.js?v=1" defer></script>
+<script src="main.js?v=3" defer></script>
 </body>
 </html>
